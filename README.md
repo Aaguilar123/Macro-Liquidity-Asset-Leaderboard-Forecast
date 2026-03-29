@@ -3,9 +3,9 @@ Week 2 (Friday): Final deadline for group formation (3–4 students).
 
 Week 6 (Friday): Decide on your dataset and forecasting task.
 
-May 8 (Friday): Finalize Home Assignment
+May 8 (Friday): Finalize Home Assignment Submission
 
-April 13 - May 14: Presentation
+April 13 - May 14: Presentation Submission
 
 
 Infrastructure: All collaborative work must be hosted in a joint GitHub repository containing a shared notebook, README, and the dataset.
