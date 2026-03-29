@@ -8,7 +8,7 @@
 - The Strategy: Formally document your Validation Setup. (Recommendation: Use a 80/20 train-test split or a rolling-window approach).
 ## Phase 3: The Individual Sprints (April 13 - 26)
 Each member works in their own individual notebook using the same cleaned data:
-- Member A	Liquidity	VAR	Does Fed Liquidity ($WALCL$) predict $XLP$ volume?
+- Member A	Liquidity	VAR	Does Fed Policy change predict $XLP$ volume?
 - Member B	Seasonality	Prophet	How do Fed Meetings/Elections flip the Leaderboard?
 - Member C	Classification	XGBoost	Predict which asset will be #1 next month.
 ## Phase 4: The Final Polish (April 27 - May 8 & Submission)
