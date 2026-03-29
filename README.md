@@ -1,7 +1,12 @@
 ## Project Timeline & Logistics
 Week 2 (Friday): Final deadline for group formation (3–4 students).
 
-Week 6 (Friday): Finalize your dataset and forecasting task.
+Week 6 (Friday): Decide on your dataset and forecasting task.
+
+May 8 (Friday): Finalize Home Assignment
+
+April 13 - May 14: Presentation
+
 
 Infrastructure: All collaborative work must be hosted in a joint GitHub repository containing a shared notebook, README, and the dataset.
 
