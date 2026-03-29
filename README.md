@@ -2,7 +2,7 @@
 ## 1. The Mission: "The Horse Race"
 We are building a forecasting engine that ranks 5 key assets based on Volume Share (Liquidity) and Relative Performance (Returns). The goal is to predict which asset "wins" the leaderboard when macro conditions shift.
 The 5 Assets:
-•	Stocks(Growth/Tech): QQQ (Nasdaq 100)
+- Stocks(Growth/Tech): QQQ (Nasdaq 100)
 •	Stocks(Consumer Staples(: XLP (Defensive/Necessities)
 •	Gold: GLD (Safe Haven/Store of Value)
 •	Bitcoin: BTC (High-Beta/Digital Liquidity)
