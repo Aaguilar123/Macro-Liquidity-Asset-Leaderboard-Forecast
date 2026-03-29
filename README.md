@@ -1,38 +1,36 @@
-# Project: Macro-Liquidity & Asset Leaderboard Forecast (2015–2026)
-## 1. The Mission: "The Horse Race"
-We are building a forecasting engine that ranks 5 key assets based on Volume Share (Liquidity) and Relative Performance (Returns). The goal is to predict which asset "wins" the leaderboard when macro conditions shift.
-The 5 Assets:
-- Stocks(Growth/Tech): QQQ (Nasdaq 100)
-- Stocks(Consumer Staples(: XLP (Defensive/Necessities)
-- Gold: GLD (Safe Haven/Store of Value)
-- Bitcoin: BTC (High-Beta/Digital Liquidity)
-- The Dollar: UUP (Cash/Global Safety)
-________________________________________
-## 2. The 4 Macro Regimes (Ranking Triggers)
-Regime	Fed Policy	CPI (Inflation)	Unemployment	Predicted #1 Rank
-1. Reflation	Dovish (Cuts)	Moderate	Low (Falling)	BTC / QQQ
-2. Stagflation	Hawkish (Hikes)	High (Rising)	High (Rising)	GLD / XLP
-3. Deflation	Dovish (Panic)	Negative (Falling)	High (Surging)	UUP (Cash)
-4. Policy Shock	Pivot (Uncertain)	Volatile	Fluctuating	UUP / GLD
-________________________________________
-## 3. Individual Modeling Tasks (40 Pts Each)
-- Member A: The Liquidity Ranker (VAR - Vector Autoregression)
-o	Focus: Volume Lead-Lag.
-o	Goal: Prove if a change in Fed Liquidity ($WALCL$) or Unemployment pushes volume into defensive assets (XLP) before the price actually moves.
-- Member B: The Shock Ranker (Prophet)
-o	Focus: Event Seasonality (Policy Shocks).
-o	Goal: Forecast how the 2026 Midterms and Fed Meeting weeks flip the rankings of the Dollar (UUP) vs. Risk assets.
-- Member C: The Winner Predictor (Random Forest / XGBoost)
-o	Focus: Regime Classification.
-o	Goal: A Machine Learning model using CPI, Rates, and Unemployment to predict which asset will be the #1 Return Performer next month.
-________________________________________
-## 4. Shared "Money Flow" Dashboard (30 Pts Shared)
-In our Joint Notebook, we will produce:
-- The Rolling Leaderboard: A dynamic chart showing the 5 assets climbing and falling in rank over the last decade.
-- Unemployment vs. Leadership: Visual proof that as UNRATE (Unemployment) rises, XLP (Staples) begins to outrank QQQ (Tech) in volume.
-- Volume Concentration Heatmap: A map showing which assets are "crowded" (highest volume rank) during each of the 4 regimes.
-________________________________________
-## 5. Data Architecture
-- Market Data (Daily): Yahoo Finance (QQQ, XLP, GLD, BTC-USD, UUP).
-- Macro Data (Monthly/Weekly): FRED API (GDP, CPIAUCSL, UNRATE, WALCL, FEDFUNDS).
-- Timeframe: January 2015 – March 2026.
+## Project Timeline & Logistics
+Week 2 (Friday): Final deadline for group formation (3–4 students).
+
+Week 6 (Friday): Finalize your dataset and forecasting task.
+
+Infrastructure: All collaborative work must be hosted in a joint GitHub repository containing a shared notebook, README, and the dataset.
+
+## Project Workflow
+1. Collaborative Foundation (Group Work)
+You must collectively perform Exploratory Data Analysis (EDA) to identify trends, seasonality, and outliers. This phase includes cleaning data and defining the "ground rules": your target variables, forecast horizons, and the validation strategy (e.g., rolling-origin or train/test splits).
+
+2. Individual Implementation (Personal Responsibility)
+Each member is responsible for their own modeling notebook. You must implement:
+
+One Baseline: Simple methods like Naïve or Seasonal Naïve.
+
+One Unique Model: A "Classical" method (ARIMA, Prophet) or an "Advanced" method (RNN, Transformer). Crucial: No two group members can implement the same model type.
+
+3. Evaluation & Reflection
+Individually, you will test your model against the baseline using multiple metrics. Finally, the group will reconvene to compare results, discuss which model performed best, and reflect on the business relevance of the findings.
+
+## Grading Breakdown (100 Points Total)
+EDA & GitHub (30 Points): A shared group score based on the depth of your data exploration and the organization of your joint GitHub repository.
+
+Modelling (40 Points): An individual score reflecting your ability to implement, tune, and justify your specific forecasting model.
+
+Presentation (20 Points): An individual score for your 5-minute Jupyter notebook walkthrough and your ability to answer technical questions.
+
+Coding Quality (10 Points): Evaluated on how clean, modular, and readable your Python code is across your submissions.
+
+## Submission Requirements
+Every student must upload two files to Moodle:
+
+The Joint Notebook (containing the EDA, problem definition, and the GitHub link).
+
+Your Individual Notebook (containing your specific model, tuning, and reflection).
