@@ -1,18 +1,21 @@
-## Phase 1: The Foundation (March 30 - April 5)
-- Infrastructure: Set up a GitHub Repository. Ensure every member commits at least once a week to prove "active collaboration" (as required by the rubric).
-- Data Pull: Create a shared script to pull Yahoo Finance (Prices/Volume) and FRED API (Macro indicators).
-- The Baseline: Agree on a Naive Forecast (e.g., "Next month = This month") that everyone must use to compare their models against.
-## Phase 2: The Joint Notebook (April 6 – April 12)
-- The Regime Mapper: Build a function that labels every month from 2015–2026 as one of your 4 Macro Regimes.
-- EDA: Visualize the "Horse Race." Create a line chart showing the total returns of the 5 assets.
-- The Strategy: Formally document your Validation Setup. (Recommendation: Use a 80/20 train-test split or a rolling-window approach).
-## Phase 3: The Individual Sprints (April 13 - 26)
-Each member works in their own individual notebook using the same cleaned data:
-- Member A	Liquidity	VAR	Does Fed Policy change predict $XLP$ volume?
-- Member B	Seasonality	Prophet	How do Fed Meetings/Elections flip the Leaderboard?
-- Member C	Classification	XGBoost	Predict which asset will be #1 next month.
-## Phase 4: The Final Polish (April 27 - May 8 & Submission)
-- The Reflection: Meet as a group to discuss why results differ. (e.g., "Why did Member C's XGBoost outperform Member A's VAR?").
-- The Dashboard: Combine individual outputs into the Volume Heatmap and Leaderboard Forecast.
-- Submission: Ensure everyone submits two files (the Joint Notebook + their Individual Notebook).
+## Phase 1: Data Acquisition & Preprocessing (March 30 - April 5)
+* **Infrastructure:** Initialize the GitHub Repository. (Note: All members must commit weekly to demonstrate collaborative contribution per the rubric).
+* **Data Ingestion:** Develop a shared, reproducible script to pull daily volume data (Yahoo Finance) and monthly macroeconomic indicators (FRED API).
+* **The Baseline:** Implement the shared baseline model (e.g., a Simple Moving Average forecast) that all advanced models must beat in the final evaluation.
 
+## Phase 2: Joint Exploratory Data Analysis (April 6 – April 12)
+* **Feature Engineering:** Smooth daily volume (21-day window), apply 1%/99% Winsorization, and compute the uniform target variable: **`3M Log-RVOL`**.
+* **EDA Artifacts:** Generate the Time-Series Decomposition, KDE Distribution plots (proving fat-tails), and the Macro Sensitivity Heatmaps.
+* **Validation Protocol:** Formally document the rigorous evaluation setup (Chronological Time-Series Split: Train 2015-2024 / Test 2025-2026) and primary metrics (MAE, RMSE).
+* **The Output:** Export the finalized, clean `final_engineered_data.csv`.
+
+## Phase 3: Individual Modeling Sprints (April 13 - April 26)
+*Working in isolated notebooks, all members train their respective models on `final_engineered_data.csv` to predict the same `3M Log-RVOL` target.*
+* **Member A (SARIMAX):** Focuses on seasonal trends and structural volume shifts, utilizing decomposition insights.
+* **Member B (XGBoost):** Focuses on non-linear volume spikes and regime boundaries, utilizing KDE insights regarding fat tails.
+* **Member C (LSTM):** Focuses on sequential dependency and volatility clustering, utilizing deep learning to capture market "long memory."
+
+## Phase 4: Evaluation, Discussion & Submission (April 27 - May 8)
+* **Performance Review:** Evaluate all three models on the exact same 2025-2026 test set. Compare MAE and RMSE against the established baseline.
+* **Group Reflection:** Synthesize findings. Discuss model stability, computational trade-offs, and why specific architectures (e.g., Deep Learning vs. Tree-based) handled the non-linear liquidity data better.
+* **Submission Formatting:** Ensure the repository contains the Joint EDA Notebook, the three Individual Modeling Notebooks, and the final synthesis report.
