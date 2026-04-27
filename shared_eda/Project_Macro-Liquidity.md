@@ -1,54 +1,60 @@
-## Project: Macro-Liquidity & Asset Flow Forecast (2015–2026)
+# Macro-Driven Asset Volume Forecasting (2015–2026)
 
-# 1. The Mission: "The Liquidity Horse Race"
-We are building a forecasting engine that ranks 5 key assets based exclusively on **Volume Share (Liquidity Concentration)**. The goal is to predict which asset "wins" the market's attention when macro conditions shift. We are tracking **Capital Migration**—proving that where the money flows, the regime follows.
+## 1. Project Objective
+This project builds predictive models to forecast **3-Month Relative Volume Growth (3M Log-RVOL)** across 5 asset classes. Rather than predicting price action, the goal is to analyze how macroeconomic regimes influence forward changes in trading activity and asset allocation. 
 
-The 5 Assets:
-- BTC-USD: Speculative Liquidity (High-Beta/Digital Risk)
-- QQQ: Growth/Tech Liquidity (Equity Expansion)
-- GLD: Store of Value Liquidity (Inflation Hedge)
-- XLP: Defensive/Necessity Liquidity (Safety/Staples)
-- UUP: Global Cash Liquidity (The Safety Valve)
+Our Exploratory Data Analysis (EDA) indicates that market volume is non-linear and exhibits fat-tailed distributions. To address this, our team evaluates three distinct modeling architectures (Classical, Tree-Based, and Deep Learning) against a standardized target variable.
 
----
-
-# 2. The 4 Macro Regimes (Liquidity Ranking Triggers)
-
-| Regime | Fed Policy | CPI (Inflation) | Unemployment | Liquidity Winner (#1) |
-| :--- | :--- | :--- | :--- | :--- |
-| 1. Expansion | Dovish (Cuts) | Moderate | Low (Falling) | BTC / QQQ |
-| 2. Inflationary | Hawkish (Hikes) | High (Rising) | Low (Stable) | GLD / BTC |
-| 3. Contraction | Dovish (Panic) | Falling | High (Rising) | UUP / XLP |
-| 4. Policy Shock | Pivot (Uncertain) | Volatile | Fluctuating | UUP / GLD |
+**Tracked Assets:**
+* **`BTC-USD`**: High-Beta / Digital Risk
+* **`QQQ`**: Broad Equity / Tech Growth
+* **`GLD`**: Inflation Hedge / Store of Value
+* **`XLP`**: Defensive Equities / Staples
+* **`UUP`**: US Dollar / Cash Proxy
 
 ---
 
-# 3. Individual Modeling Tasks (40 Pts Each)
+## 2. Macro Sensitivities (Key EDA Findings)
+Our structural analysis identified clear, regime-dependent volume triggers. These relationships inform our feature engineering and modeling choices:
 
-- **Member A: The Liquidity Flow Ranker (VAR - Vector Autoregression)**
-  - **Focus**: Macro Lead-Lag on Volume Share.
-  - **Goal**: Prove if a spike in Unemployment or a change in Fed Rates causes a statistically significant shift in **Volume Share** from Tech (QQQ) to Staples (XLP) before the price trend fully realizes.
-
-- **Member B: The Liquidity Seasonality Ranker (Prophet)**
-  - **Focus**: Event-Driven Volume Shocks.
-  - **Goal**: Forecast how the 2026 Midterms and Fed Meeting weeks flip the concentration of **Volume Share** between the Dollar (UUP) and Risk assets.
-
-- **Member C: The Flow Classifier (Random Forest / XGBoost)**
-  - **Focus**: Regime-Based Volume Winner.
-  - **Goal**: A Machine Learning model using CPI, Rates, and Unemployment to predict which asset will capture the **Highest Volume Share** (The Winner) next month.
+* **Fed Funds Rate (`QQQ`)**: Tech volume is relatively resilient to rate changes, showing only a slight rightward distribution shift during easing cycles.
+* **CPI Inflation (`BTC-USD`)**: Displays a negative correlation. Right-tail volume surges (high trading activity) occur predominantly during periods of disinflation.
+* **Unemployment (`UUP`, `XLP`, `GLD`)**: Serves as the primary driver for defensive rotation. Rising unemployment triggers structural volume shifts out of risk assets and into safety.
 
 ---
 
-# 4. Shared "Money Flow" Dashboard (30 Pts Shared)
+## 3. Individual Modeling Tasks 
+*To satisfy the project rubric and ensure a valid comparative discussion, all three models perform a regression task predicting the exact same target: **`3M Log-RVOL`**.*
 
-In our Joint Notebook, we will produce:
-- **The Volume Leaderboard**: A dynamic chart showing the 5 assets climbing and falling in rank based on **Volume Share** over the last decade.
-- **Unemployment vs. Defensive Flow**: Visual proof that as UNRATE rises, **XLP (Staples)** begins to outrank **QQQ (Tech)** in total **Volume Share** concentration.
-- **Volume Concentration Heatmap**: A map showing which assets hold the highest **Volume Share** rank during each of the 4 specific macro regimes.
+**Member A: Structural Baseline (SARIMAX)**
+* **Focus**: Seasonal and Autoregressive Trends.
+* **Methodology**: Utilizes the 252-trading-day annual seasonality proven in our time-series decomposition to model baseline volume shifts while absorbing exogenous macro indicators.
+
+**Member B: Non-Linear Regime Analysis (XGBoost Regressor)**
+* **Focus**: Distribution Tails and Regime Boundaries.
+* **Methodology**: Leverages macro state regimes (e.g., Rising vs. Falling CPI) to predict non-linear volume spikes that classical statistical models fail to capture.
+
+**Member C: Sequential Dependency (LSTM)**
+* **Focus**: Volatility Clustering and Sequence Memory.
+* **Methodology**: Evaluates how consecutive months of shifting macro conditions compound over time to influence delayed volume changes, utilizing Recurrent Neural Networks to handle sequential dependency.
 
 ---
 
-# 5. Data Architecture
+## 4. Shared Data Architecture & Artifacts 
+All models are trained on `final_engineered_data.csv`, generated through our joint EDA pipeline.
 
-- **Market Data (Daily)**: Yahoo Finance Volume (QQQ, XLP, GLD, BTC-USD, UUP). Used to calculate % Volume Share.
-- **Macro Data (Monthly)**: FRED API (CPIAUCSL - Inflation, UNRATE - Unemployment, FEDFUNDS - Interest Rates).
+**Core EDA Artifacts:**
+* **Time-Series Decomposition**: Justified SARIMAX by isolating structural trends and rigid annual seasonality.
+* **KDE Distributions**: Demonstrated non-Gaussian, fat-tailed asset behavior.
+* **Data Preprocessing**: Smoothed daily volume, applied 1%/99% Winsorization to cap extreme statistical noise, and generated the forward-looking `3M Log-RVOL` targets to strictly prevent data leakage.
+
+---
+
+## 5. Evaluation & Validation Framework
+To ensure an academically rigorous comparison, the group utilizes a standardized evaluation pipeline.
+
+* **Validation Split**: Strict Chronological Time-Series Split (No random shuffling).
+  * **Training Set**: Jan 2015 – Dec 2024 (~10 Years)
+  * **Testing Set**: Jan 2025 – Present (~1.5 Years)
+* **Primary Metric**: **MAE (Mean Absolute Error)** — Selected for robustness against extreme outliers and fat-tail volume shocks.
+* **Secondary Metric**: **RMSE (Root Mean Square Error)** — Utilized to measure the penalty for missing significant regime-driven volume shifts.
